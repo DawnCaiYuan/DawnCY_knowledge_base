@@ -10,8 +10,8 @@ Welcome to DawnCY_knowledge_base's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   hello.rst
-   demo/hello2.md
+   algorithm&data_structure/search.md
+   algorithm&data_structure/segment_tree.md
 
 
 
