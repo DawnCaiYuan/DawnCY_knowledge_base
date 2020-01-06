@@ -10,8 +10,7 @@ Welcome to DawnCY_knowledge_base's documentation!
    :maxdepth: 2
    :caption: Contents:
    
-   algorithm&data_structure/search.md
-   algorithm&data_structure/segment_tree.md
+   algorithm&data_structure/algorithm.rst
 
 
 
