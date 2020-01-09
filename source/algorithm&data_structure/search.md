@@ -1,9 +1,20 @@
 ## 搜索
 ### BFS
-1. 广度优先，每次都执行所有可行选择，常利用队列实现，且题目往往涉及最小步数等关键词。  
+1. 广度优先，每次都执行所有可行选择，常利用队列实现，涉及最短路径。  
 2. 模板：  
 ```c++
+定义部分: 状态,状态转移,限制条件,结果保存
 
+函数主体逻辑部分：
+void bfs(){
+    queue<T> q;
+    压入初始状态
+    while(q.size()){
+        获取当前状态
+        退出条件
+        将当前状态可转移的所有状态压入队列
+    }
+}
 ```
 3. 相关题目
     1. Dungeon Master(POJ_2251)
@@ -98,28 +109,77 @@
             return 0;
         }
         ```
+    2. Catch That Cow(POJ_3278)
+        - 链接：  
+        https://vjudge.net/problem/POJ-3278
+        - 题意：  
+        x通过变换成为y的最小步数，变换包括：x->x+1, x->x-1, x->2*x
+        - 思路：  
+        普通BFS
+        - 代码：  
+        ```c++
+        #include <algorithm>
+        #include <cctype>
+        #include <cmath>
+        #include <cstdio>
+        #include <cstring>
+        #include <iostream>
+        #include <queue>
+        #include <string>
+        #include <vector>
+        using namespace std;
+        #define PI acos(-1.0)
+        #define PB push_back
+        const int INF = 0x4f4f4f4f;
+        const int NINF = -INF - 1;
+        typedef long long ll;
+
+        const int maxn = 200050;
+        bool vis[maxn];
+        int times[maxn];
+        int x, y;
+
+        void bfs() {
+            queue<int> q; q.push(x);
+            vis[x] = true; times[x] = 0;
+            while (q.size()) {
+                int cur = q.front(); q.pop();
+                if (cur == y) {break;}
+                int fac[3] = {-1, 1, cur};
+                for (int i = 0; i < 3; i++) {
+                int nx = cur + fac[i];
+                    if (nx >= 0 && nx < maxn && vis[nx] == false) {
+                        q.push(nx);
+                        times[nx] = times[cur] + 1;
+                        vis[nx] = true;
+                    }
+                }
+            }
+        }
+
+        int main() {
+            cin >> x >> y;
+            memset(vis, false, sizeof(vis));
+            memset(times, -1, sizeof(times));
+            bfs();
+            cout << times[y] << endl;
+            return 0;
+        }
+        ```
 
 
 ### DFS
-1. 深度优先，失败才返回，常利用递归实现。
+1. 深度优先，失败才返回，常利用递归实现，涉及连通块问题。
 2. 模板：  
 ```c++
-const int MXN = 4f4f4f4f;
-bool vis[MXN][MXN];
-int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};
-bool limit[MXN][MXN];
+定义部分： 状态定义，状态转移，限制条件，结果保存
 
-int dfs(int x, int y){
-    if(满足退出条件){
+函数主体逻辑部分：
+int dfs(当前状态){
+    if(退出条件){
         退出;
     }
-    // 进入新路口
-    for(int i = 0; i < 4; i++){
-        int nx = x + dx[i], ny = y + dy[i];
-        if(满足限制条件){
-            dfs(nx, ny);
-        }
-    }
+    递归访问所有可以转移状态
 }
 ```
 3. 相关题目
